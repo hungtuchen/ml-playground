@@ -7,7 +7,7 @@ def softmax(z):
     e = np.exp(z - np.amax(z, axis=1, keepdims=True))
     return e / np.sum(e, axis=1, keepdims=True)
 
-class GaussianNaiveBayes(BaseEstimator):
+class GaussianNB(BaseEstimator):
     """Gaussian Naive Bayes."""
     # Binary problem.
     n_classes = 2
