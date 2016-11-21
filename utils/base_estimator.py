@@ -2,11 +2,8 @@ import numpy as np
 
 
 class BaseEstimator(object):
-    X = None
-    y = None
-    y_required = True
 
-    def _setup_input(self, X, y=None):
+    def _setup_input(self, X, y=None, y_required = True):
         """Ensure inputs to an estimator are in the expected format.
         Ensures X and y are stored as numpy ndarrays by converting from an
         array-like object if necessary. Enables estimators to define whether
@@ -19,6 +16,7 @@ class BaseEstimator(object):
         y : array-like
             Target values. By default is required, but if y_required = false
             then may be omitted.
+        y_required: boolean, default True
         """
         if not isinstance(X, np.ndarray):
             X = np.array(X)
@@ -33,7 +31,7 @@ class BaseEstimator(object):
 
         self.X = X
 
-        if self.y_required:
+        if y_required:
             if y is None:
                 raise ValueError('Missed required argument y')
 
