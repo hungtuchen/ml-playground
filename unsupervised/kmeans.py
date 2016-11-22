@@ -36,7 +36,7 @@ class KMeans(BaseEstimator):
                on Discrete algorithms. 2007
     """
 
-    def __init__(self, K=8, max_iters=300, init='random', visualize_process=False):
+    def __init__(self, K=8, max_iters=300, init='random'):
         self.K = K
         self.max_iters = max_iters
         # an array of cluster that each data point belongs to
