@@ -15,6 +15,11 @@ class KMeans(BaseEstimator):
     the nearest centroid and iterating until the assignments converge (meaning
     they don't change during an iteration) or the maximum number of iterations
     is reached.
+    Init centroids by randomly select k values from the dataset
+    For better method to improve convergence rates and avoid degenerate cases.
+    See: Arthur, D. and Vassilvitskii, S.
+         "k-means++: the advantages of careful seeding". ACM-SIAM symposium
+         on Discrete algorithms. 2007
     Parameters
     ----------
     K : int, default 8
@@ -22,58 +27,23 @@ class KMeans(BaseEstimator):
     max_iters: int, default 300
         The maximum iterations of assigning points to the nearest cluster.
         Short-circuited by the assignments converging on their own.
-    init: str, default 'random'
-        The name of the method used to initialize the first clustering.
-        'random' - Randomly select values from the dataset as the K centroids.
-        'kmeans++' - Select a random first centroid from the dataset, then select
-               K - 1 more centroids by choosing values from the dataset with a
-               probability distribution proportional to the squared distance
-               from each point's closest existing cluster. Attempts to create
-               larger distances between initial clusters to improve convergence
-               rates and avoid degenerate cases.
-               See: Arthur, D. and Vassilvitskii, S.
-               "k-means++: the advantages of careful seeding". ACM-SIAM symposium
-               on Discrete algorithms. 2007
     """
 
-    def __init__(self, K=8, max_iters=300, init='random'):
+    def __init__(self, K=8, max_iters=300):
         self.K = K
         self.max_iters = max_iters
         # an array of cluster that each data point belongs to
         self.labels = []
         # an array of center value of cluster
         self.centroids = []
-        self.init = init
 
     def _init_cetroids(self, init):
         """Set the initial centroids."""
-
-        if init == 'random':
-            indices = np.random.choice(self.n_samples, self.K, replace=False)
-            self.centroids = self.X[indices]
-
-        elif init == 'kmeans++':
-            # Pick first center randomly
-            first_index = np.random.choice(self.n_samples)
-            self.centroids = [self.X[first_index]]
-            while len(self.centroids) < self.K:
-                self.centroids.append(self._choose_next_cetroid())
-
-        else:
-            raise ValueError('Unknown type of init parameter')
+        indices = np.random.choice(self.n_samples, self.K, replace=False)
+        self.centroids = self.X[indices]
 
     def _dist_from_centers(self):
         return np.array([min([euclidean_distance(x, c) for c in self.centroids]) for x in self.X])
-
-    def _choose_next_cetroid(self):
-        distances = self._dist_from_centers()
-        probs = distances / distances.sum()
-        cumulative_probs = probs.cumsum()
-
-        r = np.random.random()
-        index = np.where(cumulative_probs >= r)[0][0]
-
-        return self.X[index]
 
     def fit(self, X=None):
         """Perform the clustering on the given dataset."""
