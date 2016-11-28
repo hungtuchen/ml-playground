@@ -1,4 +1,4 @@
-from utils.base_regression import BasicRegression
+from base_regression import BasicRegression
 from utils.metrics import mean_squared_error
 
 import numpy as np

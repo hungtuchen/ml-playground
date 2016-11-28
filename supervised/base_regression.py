@@ -1,25 +1,28 @@
-from base_estimator import BaseEstimator
+from utils.base_estimator import BaseEstimator
 
 import numpy as np
 
 class BasicRegression(BaseEstimator):
-    def __init__(self, lr=0.001, max_iters=1000, stochastic=False, verbose=False):
+    def __init__(self, lr=0.001, max_iters=1000, C=0, verbose=False):
         """Basic class for implementing continuous regression estimators which
-        are trained with (stochastic) gradient descent optimization
-        on their particular loss function.
+        are trained with gradient descent optimization on their particular loss function.
         Parameters
         ----------
         lr : float, default 0.001
             Learning rate.
         max_iters : int, default 1000
             The maximum number of iterations.
-        stochastic: boolean, default False (which uses full batch)
-            number of training examples to use at each step.
+        C : float, default 0 (no regularization)
+            The l2-regularization coefficient.
+            Since l1-norm is not differentiable, We don't support l1 here for simplicity.
+            If you want to implement it, you can check https://github.com/HIPS/autograd
+            or there are mamy algorithms out there.
         verbose: boolean, default False
             If True, print progress during optimization.
         """
         self.lr = lr
         self.max_iters = max_iters
+        self.C = C
         self.verbose = verbose
         self.loss_history = []
         self.theta = []
