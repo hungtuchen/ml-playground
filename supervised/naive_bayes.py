@@ -4,6 +4,7 @@ import numpy as np
 
 def softmax(z):
     # Avoid numerical overflow by removing max
+    # See: http://cs231n.github.io/linear-classify/
     e = np.exp(z - np.amax(z, axis=1, keepdims=True))
     return e / np.sum(e, axis=1, keepdims=True)
 

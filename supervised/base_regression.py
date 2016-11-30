@@ -32,19 +32,37 @@ class BasicRegression(BaseEstimator):
         raise NotImplementedError()
 
     def _train(self):
-        raise NotImplementedError()
+        # default: gradient descent optimization
+        theta = self.theta
+        loss_history = []
+        for i in xrange(self.max_iters):
+            # evaluate loss and gradient
+            loss, grad = self._loss(theta)
+            loss_history.append(loss)
+
+            # perform parameter update
+            # Update the weights using the gradient and the learning rate
+            theta -= self.lr * grad
+
+            if self.verbose and (i + 1) % 100 == 0:
+                print 'Iteration %s, loss %s' % (i + 1, loss_history[i])
+
+        return theta, loss_history
 
     @staticmethod
     def _add_intercept(X):
         b = np.ones([X.shape[0], 1])
         return np.concatenate([b, X], axis=1)
 
+    def init_weights(self):
+        return np.random.normal(size=(self.n_features + 1), scale=0.5)
+
     def fit(self, X, y=None):
         self._setup_input(X, y)
         self.n_samples, self.n_features = X.shape
 
         # Initialize weights + bias term
-        self.theta = np.random.normal(size=(self.n_features + 1), scale=0.5)
+        self.theta = self.init_weights()
 
         # Add an intercept column
         self.X = self._add_intercept(self.X)
