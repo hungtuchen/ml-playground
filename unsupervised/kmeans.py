@@ -37,7 +37,7 @@ class KMeans(BaseEstimator):
         # an array of center value of cluster
         self.centroids = []
 
-    def _init_cetroids(self, init):
+    def _init_cetroids(self):
         """Set the initial centroids."""
         indices = np.random.choice(self.n_samples, self.K, replace=False)
         self.centroids = self.X[indices]
@@ -49,7 +49,7 @@ class KMeans(BaseEstimator):
         """Perform the clustering on the given dataset."""
         self._setup_input(X, y_required=False)
 
-        self._init_cetroids(self.init)
+        self._init_cetroids()
 
         for i in range(self.max_iters):
             new_centroids = []

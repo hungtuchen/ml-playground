@@ -1,6 +1,8 @@
 # ml-playground
 
-Highly inspired by [MLAlgorithms](https://github.com/rushter/MLAlgorithms), which also provide clean and minimal code for machine learning algorithms. I would add more algorithms after I implement them.
+Highly inspired by [MLAlgorithms](https://github.com/rushter/MLAlgorithms), which also provide clean and minimal code for machine learning algorithms.
+
+I would add more algorithms after I implement them.
 
 ## Supervised
 
