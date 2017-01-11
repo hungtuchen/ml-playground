@@ -1,8 +1,8 @@
 # ml-playground
 
-Simple and easy-to-understand of machine learning algorithm implementations.
+This repo contains implementations of algorithms I write while learning machine learning.
 
-This repo contains implementations of algorithms while I learn machine learning. I manage to write minimal codes with demo example that can illustrate the essence of them.
+I manage to use minimal codes with demo example to illustrate the essence of them.
 
 ## Supervised
 
