@@ -1,8 +1,8 @@
 # ml-playground
 
-Highly inspired by [MLAlgorithms](https://github.com/rushter/MLAlgorithms), which also provide clean and minimal code for machine learning algorithms.
+Simple and easy-to-understand of machine learning algorithm implementations.
 
-I would add more algorithms after I implement them.
+This repo contains implementations of algorithms while I learn machine learning. I manage to write minimal codes with demo example that can illustrate the essence of them.
 
 ## Supervised
 
