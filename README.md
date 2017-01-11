@@ -6,20 +6,20 @@ I manage to use minimal codes with demo example to illustrate the essence of the
 
 ## Supervised
 
-- Linear Regression [[code]](supervised/linear_regression.py) [[demo]](linear_regression.ipynb)
+- Linear Regression [[code]](supervised/linear_regression.py) [[demo]](supervised/linear_regression.ipynb)
 
-- Logistic Regression [[code]](supervised/logistic_regression.py) [[demo]](logistic_regression.ipynb)
+- Logistic Regression [[code]](supervised/logistic_regression.py) [[demo]](supervised/logistic_regression.ipynb)
 
-- Naive Bayes [[code]](supervised/naive_bayes.py) [[demo]](naive_bayes.ipynb)
+- Naive Bayes [[code]](supervised/naive_bayes.py) [[demo]](supervised/naive_bayes.ipynb)
 
-- AdaBoost [[code]](supervised/adaboost.py) [[demo]](adaboost.ipynb)
+- AdaBoost [[code]](supervised/adaboost.py) [[demo]](supervised/adaboost.ipynb)
 
 ## Unsupervised
 
-- Kmeans [[code]](unsupervised/kmeans.py) [[demo]](kmeans.ipynb)
+- Kmeans [[code]](unsupervised/kmeans.py) [[demo]](unsupervised/kmeans.ipynb)
 
-- PCA [[code]](unsupervised/pca.py) [[demo]](pca.ipynb)
+- PCA [[code]](unsupervised/pca.py) [[demo]](unsupervised/pca.ipynb)
 
 ## Reinforcement
 
-- Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/Policy_Evaluation.ipynb)
+- Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/policy_evaluation.ipynb)

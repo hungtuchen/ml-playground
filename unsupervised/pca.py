@@ -61,7 +61,7 @@ class PCA(BaseEstimator):
 
         variance_ratio = s / s.sum()
         self.variance_ratio = variance_ratio
-        print 'Explained variance ratio: %s' % variance_ratio[0:self.n_components]
+        print('Explained variance ratio: %s' % variance_ratio[0:self.n_components])
 
         self.components = V[:, 0:self.n_components]
 

@@ -49,13 +49,13 @@ class Softmax(BasicRegression):
         X, y, C, n_samples, n_features = self.X, self.y, self.C, self.n_samples, self.n_features
         loss = 0.0
         grad = np.zeros_like(theta)
-        for i in xrange(n_samples):
+        for i in range(n_samples):
             scores = X[i].dot(theta)
             probability = softmax(scores)
             loss += -np.log(probability[y[i]])
             # gradient for softmax loss
             # http://ufldl.stanford.edu/wiki/index.php/Softmax_Regression
-            for j in xrange(self.num_classes):
+            for j in range(self.num_classes):
                 grad[:, j] += (probability[j] - (j == y[i])) * X[i, :]
 
 

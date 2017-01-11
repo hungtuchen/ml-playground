@@ -23,7 +23,7 @@ class GaussianNB(BaseEstimator):
         self._var = np.zeros((self.n_classes, self.n_features))
         self._prior = np.zeros((self.n_classes))
 
-        for c in xrange(self.n_classes):
+        for c in range(self.n_classes):
             # Filter X only in current class
             X_per_class = X[y == c]
 
@@ -50,7 +50,7 @@ class GaussianNB(BaseEstimator):
         A common fix for this is to apply log function on joint probabilities.
         """
         joint_log_likelihood = []
-        for c in xrange(self.n_classes):
+        for c in range(self.n_classes):
             prior = np.log(self._prior[c])
             # log of denominator part of gaussian distribution
             posterior = - 0.5 * np.sum(np.log(2. * np.pi * self._var[c, :]))

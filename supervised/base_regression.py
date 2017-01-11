@@ -35,7 +35,7 @@ class BasicRegression(BaseEstimator):
         # default: gradient descent optimization
         theta = self.theta
         loss_history = []
-        for i in xrange(self.max_iters):
+        for i in range(self.max_iters):
             # evaluate loss and gradient
             loss, grad = self._loss(theta)
             loss_history.append(loss)
@@ -45,7 +45,7 @@ class BasicRegression(BaseEstimator):
             theta -= self.lr * grad
 
             if self.verbose and (i + 1) % 100 == 0:
-                print 'Iteration %s, loss %s' % (i + 1, loss_history[i])
+                print('Iteration %s, loss %s' % (i + 1, loss_history[i]))
 
         return theta, loss_history
 

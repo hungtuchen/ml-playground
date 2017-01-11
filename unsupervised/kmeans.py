@@ -56,12 +56,12 @@ class KMeans(BaseEstimator):
             # update clusters base on new centroids
             new_labels = np.apply_along_axis(self._closest_cluster, 1, self.X)
             # update centroids base on new clusters
-            for k in xrange(self.K):
+            for k in range(self.K):
                 centroid = np.mean(self.X[new_labels == k], axis=0)
                 new_centroids.append(centroid)
 
             if self._is_converged(self.centroids, new_centroids):
-                print 'Converged on iteration %s' % (i + 1)
+                print('Converged on iteration %s' % (i + 1))
                 break
 
             # not converged yet, update centroids / labels to new centroids / labels
@@ -92,7 +92,7 @@ class KMeans(BaseEstimator):
         if data is None:
             data = self.X
 
-        for k in xrange(self.K):
+        for k in range(self.K):
             points = data[self.labels == k].T
             plt.scatter(*points, c=sns.color_palette("hls", self.K + 1)[k])
 
