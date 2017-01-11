@@ -19,3 +19,7 @@ This repo contains implementations of algorithms while I learn machine learning.
 - Kmeans [[code]](unsupervised/kmeans.py) [[demo]](kmeans.ipynb)
 
 - PCA [[code]](unsupervised/pca.py) [[demo]](pca.ipynb)
+
+## Reinforcement
+
+- Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/Policy_Evaluation.ipynb)
