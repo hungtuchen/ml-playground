@@ -23,3 +23,7 @@ I manage to use minimal codes with demo example to illustrate the essence of the
 ## Reinforcement
 
 - Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/policy_evaluation.ipynb)
+
+- Policy Iteration [[code]](reinforcement/policy_iteration.py) [[demo]](reinforcement/policy_iteration.ipynb)
+
+- Value Iteration [[code]](reinforcement/value_iteration.py) [[demo]](reinforcement/value_iteration.ipynb)
