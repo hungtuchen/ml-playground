@@ -1,4 +1,5 @@
 import numpy as np
+
 def policy_eval(policy, env, discount_factor=1.0, theta=0.00001):
     """
     Evaluate a policy given an environment and a full description of the environment's dynamics.
@@ -15,22 +16,25 @@ def policy_eval(policy, env, discount_factor=1.0, theta=0.00001):
     """
     # Start with a random (all 0) value function
     V = np.zeros(env.nS)
-    # just prevent while loop never stops
-    last_V = np.ones_like(V)
 
-    # stop when changes of non-terminal state less then theta
-    while np.all(np.abs(last_V[1:-1] - V[1:-1]) > theta):
-        last_V = np.copy(V)
+    while True:
+        V_converged = True
         # iterate over state
         for s in range(env.nS):
-            current_v = 0
+            new_v = 0
             # iterate over action
             for a in range(env.nA):
-                prob, next_state, reward, done = env.P[s][a][0]
-                # Bellman expectation backup
-                # If you replace last_V with V, then it's In-Place Dynamic Programming
-                current_v += policy[s][a] * (reward + discount_factor * np.sum(prob * last_V[next_state]))
+                # iterate over next state given transition probability
+                for prob, next_state, reward, done in env.P[s][a]:
+                    # Bellman expectation backup
+                    new_v += policy[s][a] * prob * (reward + discount_factor * V[next_state])
+            # if the update between two iterration is less then theta
+            # for every state of V, then the value function is converged
+            # other is not
+            if np.abs(new_v - V[s]) > theta:
+                V_converged = False
             # update new value
-            V[s] = current_v
-
-    return np.array(V)
+            V[s] = new_v
+        # stop if V_converged
+        if V_converged:
+            return np.array(V)
