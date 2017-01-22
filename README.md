@@ -22,8 +22,18 @@ I manage to use minimal codes with demo example to illustrate the essence of the
 
 ## Reinforcement
 
-- Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/policy_evaluation.ipynb)
+- Dynamic Programming
 
-- Policy Iteration [[code]](reinforcement/policy_iteration.py) [[demo]](reinforcement/policy_iteration.ipynb)
+  - Policy Evaluation [[code]](reinforcement/policy_evaluation.py) [[demo]](reinforcement/policy_evaluation.ipynb)
 
-- Value Iteration [[code]](reinforcement/value_iteration.py) [[demo]](reinforcement/value_iteration.ipynb)
+  - Policy Iteration [[code]](reinforcement/policy_iteration.py) [[demo]](reinforcement/policy_iteration.ipynb)
+
+  - Value Iteration [[code]](reinforcement/value_iteration.py) [[demo]](reinforcement/value_iteration.ipynb)
+
+- Monte Carlo Methods
+
+  - Monte Carlo Prediction [[code]](reinforcement/mc_prediction.py) [[demo]](reinforcement/mc_prediction.ipynb)
+
+  - Monte Carlo Control (with Epsilon-Greedy Policy) [[code]](reinforcement/mc_control_epsilon_greedy.py) [[demo]](reinforcement/mc_control_epsilon_greedy.ipynb)
+
+  - Monte Carlo Control (with Off-Policy Weighted Importance Sampling) [[code]](reinforcement/mc_control_importance_sampling.py) [[demo]](reinforcement/mc_control_importance_sampling.ipynb)
