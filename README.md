@@ -1,8 +1,10 @@
 # ml-playground
 
-This repo contains implementations of algorithms I write while learning machine learning.
+This project is highly inspired by [MLAlgorithms](https://github.com/rushter/MLAlgorithms).
 
-I manage to use minimal codes with demo example to illustrate the essence of them.
+It's good to learn machine learning by implementing algorithms, and better if we can write them in an elegant and readable way. Then we can review later or others might easily learn from them.
+
+So I manage to use succinct codes with demo example to illustrate the essence of ml algorithms.
 
 ## Supervised
 
