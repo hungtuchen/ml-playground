@@ -5,9 +5,10 @@ import itertools
 from utils import plotting
 from utils.policy import make_epsilon_greedy_policy
 
-def sarsa(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
+def q_learning(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
     """
-    SARSA algorithm: On-policy TD control. Finds the optimal epsilon-greedy policy.
+    Q-Learning algorithm: Off-policy TD control. Finds the optimal greedy policy
+    while following an epsilon-greedy policy
 
     Args:
         env: OpenAI environment.
@@ -17,7 +18,7 @@ def sarsa(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
         epsilon: Chance the sample a random action. Float betwen 0 and 1.
 
     Returns:
-        A tuple (Q, stats).
+        A tuple (Q, episode_lengths).
         Q is the optimal action-value function, a dictionary mapping state -> action values.
         stats is an EpisodeStats object with two numpy arrays for episode_lengths and episode_rewards.
     """
@@ -31,25 +32,26 @@ def sarsa(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
         episode_lengths=np.zeros(num_episodes),
         episode_rewards=np.zeros(num_episodes))
 
+    # The policy we're following
     policy = make_epsilon_greedy_policy(Q, epsilon, env.action_space.n)
 
     for i_episode in range(num_episodes):
         current_state = env.reset()
-        # choose the action based on epsilon greedy policy
-        probs = policy(current_state)
-        action = np.random.choice(np.arange(len(probs)), p=probs)
         # keep track number of time-step per episode only for plotting
         for t in itertools.count():
+            # choose the action based on epsilon greedy policy
+            action_probs = policy(current_state)
+            action = np.random.choice(np.arange(len(action_probs)), p=action_probs)
             next_state, reward, done, _ = env.step(action)
 
-            # choose next action
-            next_probs = policy(next_state)
-            next_action = np.random.choice(np.arange(len(next_probs)), p=next_probs)
-            # evaluate Q using estimated action value of (next_state, next_action)
-            td_target = reward + discount_factor * Q[next_state][next_action]
-            Q[current_state][action] += alpha * (td_target - Q[current_state][action])
+            # not the action which agent will actually follow
+            greedy_next_action = Q[next_state].argmax()
+            # evaluate Q using estimated action value of (next_state, greedy_next_action)
+            td_target = reward + discount_factor * Q[next_state][greedy_next_action]
+            td_error = td_target - Q[current_state][action]
+            Q[current_state][action] += alpha * td_error
 
-            # improve policy using new evaluate Q
+            # improve epsilon greedy policy using new evaluate Q
             policy = make_epsilon_greedy_policy(Q, epsilon, env.action_space.n)
 
             # Update statistics
@@ -60,6 +62,5 @@ def sarsa(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
                 break
             else:
                 current_state = next_state
-                action = next_action
 
     return Q, stats

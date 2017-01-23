@@ -1,31 +1,7 @@
 import numpy as np
 from collections import defaultdict
 
-def make_epsilon_greedy_policy(Q, epsilon, nA):
-    """
-    Creates an epsilon-greedy policy based on a given Q-function and epsilon.
-
-    Args:
-        Q: A dictionary that maps from state -> action-values.
-            Each value is a numpy array of length nA (see below)
-        epsilon: The probability to select a random action . float between 0 and 1.
-        nA: Number of actions in the environment.
-
-    Returns:
-        A function that takes the state as an argument and returns
-        the probabilities for each action in the form of a numpy array of length nA.
-
-    """
-    def policy_fn(state):
-        action_values = Q[state]
-        greedy_action = action_values.argmax()
-        # 1 / epsilon for non-greedy actions, (1 / epsilon + (1 - epsilon)) for greedy action
-        probs = (epsilon / nA) * np.ones(nA)
-        probs[greedy_action] += 1.0 - epsilon
-
-        return probs
-
-    return policy_fn
+from utils.policy import make_epsilon_greedy_policy
 
 def mc_control_epsilon_greedy(env, num_episodes, discount_factor=1.0, epsilon=0.1):
     """

@@ -1,27 +1,7 @@
 import numpy as np
 from collections import defaultdict
 
-def create_greedy_policy(Q, nA):
-    """
-    Creates a greedy policy based on Q values.
-
-    Args:
-        Q: A dictionary that maps from state -> action values
-        nA: Number of actions in the environment.
-
-    Returns:
-        A function that takes an observation as input and returns a vector
-        of action probabilities.
-    """
-
-    def policy_fn(observation):
-        probs = np.zeros(nA)
-        greedy_action = Q[observation].argmax()
-        probs[greedy_action] = 1.0
-
-        return probs
-
-    return policy_fn
+from utils.policy import make_greedy_policy
 
 def mc_control_importance_sampling(env, num_episodes, behavior_policy, discount_factor=1.0):
     """
@@ -48,7 +28,7 @@ def mc_control_importance_sampling(env, num_episodes, behavior_policy, discount_
     # A cumulative sum of weighted importance sampling ratio
     C = defaultdict(lambda: np.zeros(env.action_space.n))
 
-    greedy_policy = create_greedy_policy(Q, env.action_space.n)
+    greedy_policy = make_greedy_policy(Q, env.action_space.n)
 
     for episode in range(num_episodes):
         # keep track of visited rewards, states, actions in current episode
@@ -79,7 +59,7 @@ def mc_control_importance_sampling(env, num_episodes, behavior_policy, discount_
                     Q[state][action] += (W / C[state][action]) * (G - Q[state][action])
 
                     # improve the policy based on new evaluated Q
-                    greedy_policy = create_greedy_policy(Q, env.action_space.n)
+                    greedy_policy = make_greedy_policy(Q, env.action_space.n)
                     # if target policy is not the same as behavior policy, then we can't
                     # evaluate it (not the same trajectory), so break
                     greedy_action = greedy_policy(state).argmax()
