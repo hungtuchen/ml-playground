@@ -38,4 +38,9 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 
   - Monte Carlo Control (with Epsilon-Greedy Policy) [[code]](reinforcement/mc_control_epsilon_greedy.py) [[demo]](reinforcement/mc_control_epsilon_greedy.ipynb)
 
-  - Monte Carlo Control (with Off-Policy Weighted Importance Sampling) [[code]](reinforcement/mc_control_importance_sampling.py) [[demo]](reinforcement/mc_control_importance_sampling.ipynb)
+  - Monte Carlo Off-Policy Control (with Weighted Importance Sampling) [[code]](reinforcement/mc_control_importance_sampling.py) [[demo]](reinforcement/mc_control_importance_sampling.ipynb)
+
+- Temporal Difference Methods
+
+  - SARSA [[code]](reinforcement/sarsa.py) [[demo]](reinforcement/sarsa.ipynb)
+  - Q-Learning [[code]](reinforcement/q_learning.py) [[demo]](reinforcement/q_learning.ipynb)
