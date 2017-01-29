@@ -1,6 +1,6 @@
 # ml-playground
 
-This project reuses code and is highly inspired by great resources:
+This project reuses code and is highly inspired by (selected) great resources:
 
 1. [MLAlgorithms](https://github.com/rushter/MLAlgorithms)
 2. [reinforcement-learning](https://github.com/dennybritz/reinforcement-learning).
