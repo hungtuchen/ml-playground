@@ -1,6 +1,9 @@
 # ml-playground
 
-This project is highly inspired by [MLAlgorithms](https://github.com/rushter/MLAlgorithms) and other great references, including [reinforcement-learning](https://github.com/dennybritz/reinforcement-learning).
+This project reuses code and is highly inspired by great resources:
+
+1. [MLAlgorithms](https://github.com/rushter/MLAlgorithms)
+2. [reinforcement-learning](https://github.com/dennybritz/reinforcement-learning).
 
 It's good to learn machine learning by implementing algorithms, and better if we can write them in an elegant and readable way. Then we can review later or others might easily learn from them.
 
