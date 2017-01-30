@@ -27,12 +27,11 @@ def q_learning(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
     # A nested dictionary that maps state -> (action -> action-value).
     Q = defaultdict(lambda: np.zeros(env.action_space.n))
 
-    # Keeps track of useful statistics
+    # keeps track of useful statistics
     stats = plotting.EpisodeStats(
         episode_lengths=np.zeros(num_episodes),
         episode_rewards=np.zeros(num_episodes))
 
-    # The policy we're following
     policy = make_epsilon_greedy_policy(Q, epsilon, env.action_space.n)
 
     for i_episode in range(num_episodes):
@@ -44,7 +43,7 @@ def q_learning(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
             action = np.random.choice(np.arange(len(action_probs)), p=action_probs)
             next_state, reward, done, _ = env.step(action)
 
-            # not the action which agent will actually follow
+            # sse the greedy action to evaluate Q, not the one we actually follow
             greedy_next_action = Q[next_state].argmax()
             # evaluate Q using estimated action value of (next_state, greedy_next_action)
             td_target = reward + discount_factor * Q[next_state][greedy_next_action]
@@ -54,7 +53,7 @@ def q_learning(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
             # improve epsilon greedy policy using new evaluate Q
             policy = make_epsilon_greedy_policy(Q, epsilon, env.action_space.n)
 
-            # Update statistics
+            # update statistics
             stats.episode_rewards[i_episode] += reward
             stats.episode_lengths[i_episode] = t
 

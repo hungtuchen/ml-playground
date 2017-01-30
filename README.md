@@ -47,3 +47,7 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 
   - SARSA [[code]](reinforcement/sarsa.py) [[demo]](reinforcement/sarsa.ipynb)
   - Q-Learning [[code]](reinforcement/q_learning.py) [[demo]](reinforcement/q_learning.ipynb)
+
+- Value Function Approximation
+
+  - Q-Learning (with Function Approximation) [[code]](reinforcement/q_learning_fa.py) [[demo]](reinforcement/q_learning_fa.ipynb)
