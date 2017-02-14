@@ -51,3 +51,7 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 - Value Function Approximation
 
   - Q-Learning (with Function Approximation) [[code]](reinforcement/q_learning_fa.py) [[demo]](reinforcement/q_learning_fa.ipynb)
+
+- Policy Gradient Methods
+
+  - REINFORCE with Baseline [[code]](reinforcement/reinforce_baseline.py) [[demo]](reinforcement/reinforce_baseline.ipynb)
