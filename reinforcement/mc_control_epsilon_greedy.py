@@ -65,7 +65,7 @@ def mc_control_epsilon_greedy(env, num_episodes, discount_factor=1.0, epsilon=0.
                         return_ += (discount_factor ** j) * reward
                     returns_sum[state_action] += return_
 
-                # evaluate Q after every epsilon (We can improve policy when we have more experience)
+                # evaluate Q after every episode (We can improve policy when we have more experience)
                 for state_action, count in returns_count.items():
                     state, action = state_action
                     Q[state][action] = returns_sum[state_action] / count
