@@ -42,15 +42,11 @@ class ValueEstimator(nn.Module):
         state_values = self.W2(h)
         return state_values
 
-def select_action_baseline(state, policy_estimator, value_estimator):
-    state = torch.from_numpy(state).float().unsqueeze(0)
-    probs = policy_estimator(Variable(state))
-    action = probs.multinomial()
-    baseline = value_estimator(Variable(state))
-    return action, baseline
-
 def discount_rewards(rewards, gamma):
-  """ take 1D float array of rewards and compute discounted reward """
+  """
+    take 1D float array of rewards and compute discounted reward
+    Reference: https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5#file-pg-pong-py-L18
+  """
   discounted_rewards = np.zeros_like(rewards)
   running_add = 0
   for t in reversed(range(len(rewards))):
@@ -84,20 +80,28 @@ def reinforce_baseline(env, policy_estimator, policy_optimizer, value_estimator,
         episode_rewards=np.zeros(num_episodes))
 
     for i_episode in range(num_episodes):
-        episode_baselines = []
         episode_actions = []
         episode_rewards = []
+        episode_baselines = []
 
         state = env.reset()
         for t in count(1):
-            action, baseline = select_action_baseline(state, policy_estimator, value_estimator)
+            state = torch.from_numpy(state).float().unsqueeze(0)
+            # Calculate the probability distribution of actions
+            probs = policy_estimator(Variable(state))
+            # Select action by distribution estimated above
+            action = probs.multinomial()
+            # Calculate state value as baseline
+            baseline = value_estimator(Variable(state))
+
             state, reward, done, _ = env.step(action.data[0, 0])
             if render:
                 env.render()
-            # keep track of visited action, reward and baseline for later update
-            episode_baselines.append(baseline)
+            # Keep track of visited action, reward and baseline for later update
             episode_actions.append(action)
             episode_rewards.append(reward)
+            episode_baselines.append(baseline)
+
             # update statistics
             stats.episode_rewards[i_episode] += reward
             stats.episode_lengths[i_episode] = t
@@ -112,31 +116,29 @@ def reinforce_baseline(env, policy_estimator, policy_optimizer, value_estimator,
         discount_rs /= discount_rs.std()
 
         # define creterion and calculate loss for value funcion
-        value_criterion = nn.MSELoss()
-        value_loss = 0.0
+        value_target = Variable(torch.Tensor(discount_rs), requires_grad=False)
+        value_predict = torch.cat(episode_baselines)
+        value_loss = F.smooth_l1_loss(value_predict, value_target)
 
         # Registers a reward obtained as a result of a stochastic process.
         # Differentiating stochastic nodes requires providing them with reward value.
         for baseline, action, r in zip(episode_baselines, episode_actions, discount_rs):
             action.reinforce(r - baseline.data)
-            value_loss += value_criterion(baseline, Variable(torch.Tensor([r]), requires_grad=False))
 
-        # remove gradient from previous steps
+
+        # Remove gradient from previous steps
         policy_optimizer.zero_grad()
         value_optimizer.zero_grad()
 
-        # backward function additionaly requires specifying grad_variables.
-        # It should be a sequence of matching length, that containins gradient of the
-        # differentiated function w.r.t. corresponding variables
-        # (None is an acceptable value for all variables that don’t need gradient tensors).
-        autograd.backward(episode_actions, [None for _ in episode_actions])
+        # Perform backward pass
+        torch.cat(episode_actions).backward()
         value_loss.backward()
 
-        # use optimizer to update
+        # Use optimizer to update
         policy_optimizer.step()
         value_optimizer.step()
 
-        # book-keep the running reward
+        # Book-keep the running reward
         running_reward = running_reward * 0.99 + sum(episode_rewards) * 0.01
         if i_episode % 10 == 0:
             print('Episode {}\tRunning reward: {:.2f}'.format(i_episode, running_reward))
