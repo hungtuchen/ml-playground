@@ -46,6 +46,7 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 - Temporal Difference Methods
 
   - SARSA [[code]](reinforcement/sarsa.py) [[demo]](reinforcement/sarsa.ipynb)
+
   - Q-Learning [[code]](reinforcement/q_learning.py) [[demo]](reinforcement/q_learning.ipynb)
 
 - Value Function Approximation
