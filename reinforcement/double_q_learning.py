@@ -36,7 +36,7 @@ def make_double_q_epsilon_greedy_policy(epsilon, nA, Q1, Q2):
 
 def double_q_learning(env, num_episodes, discount_factor=1.0, alpha=0.5, epsilon=0.1):
     """
-    Double Q-Learning algorithm: Off-policy TD control that avoid maxmization.
+    Double Q-Learning algorithm: Off-policy TD control that avoid maxmization bias.
     Finds the optimal greedy policy while following an epsilon-greedy policy.
 
     Args:
