@@ -60,3 +60,7 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 - Policy Gradient Methods
 
   - REINFORCE with Baseline [[code]](reinforcement/reinforce_baseline.py) [[demo]](reinforcement/reinforce_baseline.ipynb)
+
+- Hierarchical Reinforcement Learning
+
+  - [Hierarchical Deep Reinforcement Learning](https://github.com/transedward/pytorch-hdqn)
