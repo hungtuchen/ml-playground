@@ -61,6 +61,8 @@ So I manage to use succinct codes with demo example to illustrate the essence of
 
   - REINFORCE with Baseline [[code]](reinforcement/reinforce_baseline.py) [[demo]](reinforcement/reinforce_baseline.ipynb)
 
+  - TD Actor-Critic with Baseline [[code]](reinforcement/td_actor_critic_baseline.py) [[demo]](reinforcement/td_actor_critic_baseline.ipynb)
+
 - Hierarchical Reinforcement Learning
 
   - [Hierarchical Deep Reinforcement Learning](https://github.com/transedward/pytorch-hdqn)
